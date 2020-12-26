@@ -42,7 +42,7 @@ def create_app():
             return rsp
 
         # TODO: make only one time loaded request
-        file_name = 'filename.joblib'
+        file_name = 'filename5.joblib'
         model = load(file_name)
 
         # prepare parameters
@@ -52,7 +52,19 @@ def create_app():
 
         return { 'gdpPerCapita': predicted_result[0] }
 
-    def prepare_prediction_data(request):
-        return [[40096.555, 3.595, 0.797, 92.642, 1.119, 12.648, 13.428, 14.047, 15.907, 6.933, 37.756, 80.285, 195.436]]
+    def prepare_prediction_data(jsonData):
+        ''' 
+        PCPI	Inflation, average consumer prices
+        PCPIE	Inflation, end of period consumer prices
+        LUR     Unemployment rate
+        LE      Employment
+        LP      Population
+        '''
+        return [[
+            jsonData['PCPI'],
+            jsonData['PCPIE'],
+            jsonData['LUR'],
+            jsonData['LE'],
+            jsonData['LP']]]
 
     return app

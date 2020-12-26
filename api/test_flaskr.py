@@ -1,5 +1,3 @@
-import os
-import tempfile
 from flask import json
 
 import pytest
@@ -16,13 +14,7 @@ from flaskr import create_app
 @pytest.fixture
 def client():
     with create_app().test_client() as client:
-        # with create_app().app_context():
-        #     flaskr.init_db()
         yield client
-
-    # os.close(db_fd)
-    # os.unlink(flaskr.app.config['DATABASE'])
-
 
 def test_root_response_hello_world(client):
     """Should return Hello world"""
@@ -62,16 +54,26 @@ def test_gdp_per_capita_unable_to_parse_request(client):
 def test_gdp_per_capita_retuns_ok(client):
     """
     successfull request returns predicted GDP
+
+    params from germany
+    2008
+    NGDPRPPPPC 48,641.279 
+    91.392
+    91.200
+    7.383
+    37.644
+    80.764
+    predicted 50970.0028
     """
     rqs = {"grossNationalSavings": 10,
            "continent": "Europe",
-           "param1":1,
-           "param2":1,
-           "param3":1,
-           "param4":1,
-           "param5":1
+           "PCPI":91.392,
+           "PCPIE":91.200,
+           "LUR":7.383,
+           "LE":37.644,
+           "LP":80.764
            }
-# https://stackoverflow.com/a/28840457
+    # https://stackoverflow.com/a/28840457
     rv = client.post(
         '/gdp-per-capita',
         json=rqs,
