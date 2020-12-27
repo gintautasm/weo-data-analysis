@@ -46,14 +46,14 @@ def create_app():
         model = load(file_name)
 
         # prepare parameters
-        
+
         prediction_data = prepare_prediction_data(req)
         predicted_result = model.predict(prediction_data)
 
-        return { 'gdpPerCapita': predicted_result[0] }
+        return {'gdpPerCapita': predicted_result[0]}
 
     def prepare_prediction_data(jsonData):
-        ''' 
+        '''
         PCPI	Inflation, average consumer prices
         PCPIE	Inflation, end of period consumer prices
         LUR     Unemployment rate
