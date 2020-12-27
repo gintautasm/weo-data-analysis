@@ -7,14 +7,15 @@
 # %%pycodestyle
 # https://stackoverflow.com/a/54278757
 
-from sklearn.cluster import KMeans
 import os
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
+from sklearn.cluster import KMeans
 from sklearn.metrics import mean_squared_error, r2_score
-from sklearn.feature_selection import SelectKBest, f_regression, mutual_info_regression
+from sklearn.feature_selection import SelectKBest, f_regression
+from sklearn.feature_selection import mutual_info_regression
 from joblib import dump, load
 
 
