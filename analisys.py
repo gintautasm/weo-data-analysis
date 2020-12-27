@@ -7,6 +7,9 @@
 # %%pycodestyle
 # https://stackoverflow.com/a/54278757
 
+# export venv to file
+# https://stackoverflow.com/a/14685017
+
 import os
 import pandas as pd
 import numpy as np
