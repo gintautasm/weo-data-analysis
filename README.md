@@ -19,6 +19,12 @@ cd api && python venv venv
 pip install -r requirements.txt
 ```
 
+### run flask app
+```
+export FLASK_APP=api/app.py
+flask run
+```
+
 ### run flask tests
 ```
 python -m pytest
