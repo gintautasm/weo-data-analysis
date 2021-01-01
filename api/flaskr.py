@@ -14,6 +14,9 @@ def create_app():
     app = Flask(__name__)
     app.logger.setLevel('INFO')
 
+    # cache model for prediction
+    app.model = None
+
     @app.route('/')
     def hello_world():
         app.logger.info('asdfghjk')
@@ -41,14 +44,11 @@ def create_app():
             rsp.headers['Content-Type'] = 'application/json'
             return rsp
 
-        # TODO: make only one time loaded request
-        file_name = 'filename5.joblib'
-        model = load(file_name)
-
-        # prepare parameters
+        if app.model is None:
+            app.model = load_prediction_model()
 
         prediction_data = prepare_prediction_data(req)
-        predicted_result = model.predict(prediction_data)
+        predicted_result = app.model.predict(prediction_data)
 
         return {'gdpPerCapita': predicted_result[0]}
 
@@ -66,5 +66,9 @@ def create_app():
             jsonData['LUR'],
             jsonData['LE'],
             jsonData['LP']]]
+
+    def load_prediction_model():
+        file_name = 'filename5.joblib'
+        return load(file_name)
 
     return app
